@@ -15,7 +15,7 @@
         <li> Após executar o emulador os eventos de teclado ficarão presos no emulador. Se quiser voltar a navegar pela página talvez seja melhor clicar no ícone de "reload" do seu navegador.</li>
         <li> Este emulador ainda não suporta carga de arquivos de fitas perfuradas contendo programas a serem executados no computador</li>
         <li> A emulação se inicia incorretamente com o programa hello world já carregado na memória e com o registrador CI (contador de instruções) já apontando para o endereço /006 que é onde está a primeira instrução do programa. Ou seja, não está ainda sendo feito uso de um programa loader (até mesmo por que ainda não conseguimos resgatar por completo o loader original da década de 70).</li>
-        <li>Talvez você tenha notado que além do programa hello world (identificado como 'Punched tapes'), também é feito o download de 'Teleprinter keypress sample'. Isso é um arquivo WAV com o som do pressionamento de teclas/impressão de caracteres. Apesar destes efeitos sonoros, sincronizados com a operação da teletype virtual, funcionarem bem na compilação nativa do emulador, não consegui ainda fazer funcionar o áudio na versão compilada para a web. Provavelmente vou conseguir consertar isso em breve, mas por enquanto o emulador está "mudo". :-(</li>
+        <!-- <li>Talvez você tenha notado que além do programa hello world (identificado como 'Punched tapes'), também é feito o download de 'Teleprinter keypress sample'. Isso é um arquivo WAV com o som do pressionamento de teclas/impressão de caracteres. Apesar destes efeitos sonoros, sincronizados com a operação da teletype virtual, funcionarem bem na compilação nativa do emulador, não consegui ainda fazer funcionar o áudio na versão compilada para a web. Provavelmente vou conseguir consertar isso em breve, mas por enquanto o emulador está "mudo". :-(</li> -->
     </ul>
 
     <h3>Emulação do programa 'Hello World'</h3>
@@ -24,7 +24,7 @@
     </div>
 
     <h3>Detalhes técnicos</h3>
-    Esta compilação foi feita a partir <a href="https://github.com/felipesanches/mame/commit/767ee1516db25ff9a3c83cfaac914168a9836c0e">deste commit</a> disponível no GitHub. Em particular, fiz algumas alterações "inadequadas" nesta compilação, para conseguir um aspecto visual agradável. Modifiquei a largura e a altura default da teletype para que a janela do emulador mostre apenas o cantinho onde é impresso o texto "PATINHO FEIO". A largura desta compilação está setada para 16 caracteres, enquanto a largura real da teletype ASR33 era de 72 caracteres.
+    Esta compilação foi feita a partir <a href="https://github.com/felipesanches/mame/commit/4d2da785023caf57b7b5affa46e5043261ef78a9">deste commit</a> disponível no GitHub. Em particular, fiz algumas alterações "inadequadas" nesta compilação, para conseguir um aspecto visual agradável. Modifiquei a largura e a altura default da teletype para que a janela do emulador mostre apenas o cantinho onde é impresso o texto "PATINHO FEIO". A largura desta compilação está setada para 16 caracteres, enquanto a largura real da teletype ASR33 era de 72 caracteres.
     </br></br>
     A linha de comando que utilizei para esta compilação foi:
     <pre>
@@ -50,9 +50,9 @@
                                                    JSMESSLoader.mountFile("patinho.zip",
                                                                           JSMESSLoader.fetchFile("Punched Tapes",
                                                                                                  "ROM/patinho.zip")),
-                                                   JSMESSLoader.mountFile("keypress.wav",
-                                                                          JSMESSLoader.fetchFile("Teleprinter keypress Sample",
-                                                                                                 "samples/teleprinter/keypress.wav")),
+//                                                   JSMESSLoader.mountFile("keypress.wav",
+//                                                                          JSMESSLoader.fetchFile("Teleprinter keypress Sample",
+//                                                                                                 "samples/teleprinter/keypress.wav")),
                                                    //JSMESSLoader.mountFile("patinho.cfg",
                                                    //                       JSMESSLoader.fetchFile("Config",
                                                    //                                              "emulators/patinho.cfg")),
