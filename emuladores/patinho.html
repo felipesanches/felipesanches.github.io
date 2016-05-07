@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>example computer program</title>
+  </head>
+  <body>
+    <h2>Preservação histórica do computador 'Patinho Feio' (1971)</h2>
+    <h3>Introdução</h3>
+    Esta página contém uma compilação do emulador do Patinho Feio que estou desenvolvendo junto ao projeto <a href="http://mamedev.org/">MAME</a>, compilado para bytecode de máquina virtual da linguagem Javascript usando as ferramentas do projeto <a href="https://en.wikipedia.org/wiki/Emscripten">Emscripten</a>. Com isso, busco tornar estes esforços de preservação por meio da emulação mais acessíveis ao público geral, tendo também em mente o potencial educacional deste tipo de trabalho.
+    <h3>Funcionamento e instruções de uso</h3>
+    Ao pressionar a <b>tecla F3</b> o emulador é reiniciado. Apesar de parecer apenas uma imagem (como um GIF animado), na realidade estas imagens são geradas pela execução de um programa "Hello World" que foi extraído do <a href="https://archive.org/details/Montador_do_Patinho_Feio__Julho1977">Manual do Montador do Patinho Feio (1977)</a>, sendo executado uma instrução por vez no emulador do Patinho, e gerando eventos de I/O para a TeleType ASR33, o que resulta na renderização dos ícones dos caracteres correspondentes na janela do emulador. No caso dessa compilação para javascript, a "janela" é substituída por um elemento CANVAS do HTML, inserido na página.
+
+    <h4>Problemas conhecidos</h4>
+    <ul>
+        <li> Após executar o emulador os eventos de teclado ficarão presos no emulador. Se quiser voltar a navegar pela página talvez seja melhor clicar no ícone de "reload" do seu navegador.</li>
+        <li> Este emulador ainda não suporta carga de arquivos de fitas perfuradas contendo programas a serem executados no computador</li>
+        <li> A emulação se inicia incorretamente com o programa hello world já carregado na memória e com o registrador CI (contador de instruções) já apontando para o endereço /006 que é onde está a primeira instrução do programa. Ou seja, não está ainda sendo feito uso de um programa loader (até mesmo por que ainda não conseguimos resgatar por completo o loader original da década de 70).</li>
+        <li>Talvez você tenha notado que além do programa hello world (identificado como 'Punched tapes'), também é feito o download de 'Teleprinter keypress sample'. Isso é um arquivo WAV com o som do pressionamento de teclas/impressão de caracteres. Apesar destes efeitos sonoros, sincronizados com a operação da teletype virtual, funcionarem bem na compilação nativa do emulador, não consegui ainda fazer funcionar o áudio na versão compilada para a web. Provavelmente vou conseguir consertar isso em breve, mas por enquanto o emulador está "mudo". :-(</li>
+    </ul>
+
+    <h3>Emulação do programa 'Hello World'</h3>
+    <div>
+      <canvas id="canvas" style="width: 50%; height: 50%; display: block;"/>
+    </div>
+
+    <h3>Detalhes técnicos</h3>
+    Esta compilação foi feita a partir do commit 30df2ff disponível no GitHub <a href="https://github.com/felipesanches/mame/commit/30df2ff47e90c12e9a727d6cbac47c4c0e2f179f">aqui</a>. Em particular, fiz algumas alterações "inadequadas" nesta compilação, para conseguir um aspecto visual agradável. Modifiquei a largura e a altura default da teletype para que a janela do emulador mostre apenas o cantinho onde é impresso o texto "PATINHO FEIO". A largura desta compilação está setada para 16 caracteres, enquanto a largura real da teletype ASR33 era de 72 caracteres.
+    </br></br>
+    A linha de comando que utilizei para esta compilação foi:
+    <pre>
+~/devel/prebuilt/emsdk_portable/emscripten/master/emmake make SUBTARGET=patinho SOURCES=src/mame/drivers/patinho_feio.cpp
+    </pre>
+    <h3>Planos para o futuro</h3>
+    <ul>
+      <li>Pretendo preparar um outro exemplo como este em breve que possa deixar mais óbvio o fato de ser um emulador e não apenas uma animação. Para isso eu teria que carregar um programa interativo, por exemplo algo que gere mensagens de texto na teletype em função das teclas pressinadas em seu teclado.</li>
+      <li>Não consegui ainda habilitar a tela do debugger. Mas acho que é nesta tela que temos as maiores oportunidades educacionais, pois por meio dela podemos ver a listagem do código que está sendo executado e controlar sua execução passo-a-passo.</li>
+      <li>Gostaria de experimentar com a idéia de mapear o conteúdo do elemento CANVAS em texturas de objetos tridimensionais, em um modelo 3D do Patinho Feio e seus periféricos. Ano passado fiz experimentos para uma proposta de subsistema 3D para o MAME, que pode ser vista <a href="https://github.com/mamedev/mame/issues/388#issuecomment-154594713">aqui</a>. Um outro desenvolvedor algum tempo atrás criou um ambiente similar, utilizando tecnologia <a href="https://en.wikipedia.org/wiki/WebGL">Webgl</a>, para fazer uma <a href="http://www.metacade.com/">demonstração</a> desta tecnologia construindo uma sala de jogos virtual com um gabinete do jogo PacMan (Come-Come) sendo executado numa compilação para javascript do emulador de pac-man oferecido como parte do projeto MAME.</li>
+    </ul>
+
+    <script type="text/javascript" src="es6-promise.js"></script>
+    <script type="text/javascript" src="browserfs.js"></script>
+    <script type="text/javascript" src="loader.js"></script>
+    <script type="text/javascript">
+      var emulator = new Emulator(document.querySelector("#canvas"),
+                                  null,
+                                  new JSMESSLoader(JSMESSLoader.driver("patinho"),
+                                                   JSMESSLoader.nativeResolution(64*4, 15*4),
+                                                   JSMESSLoader.aspectRatio(64.0/15.0),
+                                                   JSMESSLoader.emulatorJS("emulators/mamepatinho.js"),
+                                                   JSMESSLoader.mountFile("patinho.zip",
+                                                                          JSMESSLoader.fetchFile("Punched Tapes",
+                                                                                                 "ROM/patinho.zip")),
+                                                   JSMESSLoader.mountFile("keypress.wav",
+                                                                          JSMESSLoader.fetchFile("Teleprinter keypress Sample",
+                                                                                                 "samples/teleprinter/keypress.wav")),
+                                                   //JSMESSLoader.mountFile("patinho.cfg",
+                                                   //                       JSMESSLoader.fetchFile("Config",
+                                                   //                                              "emulators/patinho.cfg")),
+                                                   JSMESSLoader.extraArgs(['-ui_active', '-samples'])
+                                                  )
+                                 );
+      emulator.setScale(1).start({ waitAfterDownloading: true });
+    </script>
+  </body>
+</html>
