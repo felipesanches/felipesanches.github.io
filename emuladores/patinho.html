@@ -6,7 +6,7 @@
   <body>
     <h2>Preservação histórica do computador 'Patinho Feio' (de 1971)</h2>
     <small><i>por Felipe C. da S. Sanches &lt;juca@members.fsf.org&gt;<br/>Maio de 2016</i></small></br>
-    <img src="Emulando_O_PATO__ORLY.png" style="border:1px solid grey; position:relative; top:10px; left:10px" width="200px" alt="Se eu escrever um livro algum dia, a capa provavelmente vai ser mais ou menos assim..." />
+    <img src="images/Emulando_O_PATO__ORLY.png" style="border:1px solid grey; position:relative; top:10px; left:10px" width="200px" alt="Se eu escrever um livro algum dia, a capa provavelmente vai ser mais ou menos assim..." />
 
     <h3>Introdução</h3>
     Esta página contém uma compilação do emulador do Patinho Feio que estou desenvolvendo junto ao projeto <a href="http://mamedev.org/">MAME</a>, compilado para bytecode de máquina virtual da linguagem Javascript usando as ferramentas do projeto <a href="https://en.wikipedia.org/wiki/Emscripten">Emscripten</a>. Com isso, busco tornar estes esforços de preservação por meio da emulação mais acessíveis ao público geral, tendo também em mente o potencial educacional deste tipo de trabalho.
@@ -39,6 +39,12 @@
       <li>Não consegui ainda habilitar a tela do debugger. Mas acho que é nesta tela que temos as maiores oportunidades educacionais, pois por meio dela podemos ver a listagem do código que está sendo executado e controlar sua execução passo-a-passo.</li>
       <li>Gostaria de experimentar com a idéia de mapear o conteúdo do elemento CANVAS em texturas de objetos tridimensionais, em um modelo 3D do Patinho Feio e seus periféricos. Ano passado fiz experimentos para uma proposta de subsistema 3D para o MAME, que pode ser vista <a href="https://github.com/mamedev/mame/issues/388#issuecomment-154594713">aqui</a>. Um outro desenvolvedor algum tempo atrás criou um ambiente similar, utilizando tecnologia <a href="https://en.wikipedia.org/wiki/WebGL">Webgl</a>, para fazer uma <a href="http://www.metacade.com/">demonstração</a> desta tecnologia construindo uma sala de jogos virtual com um gabinete do jogo PacMan (Come-Come) sendo executado numa compilação para javascript do emulador de pac-man oferecido como parte do projeto MAME.</li>
     </ul>
+
+    <h3>Work in progress...</h3>
+    <h4>2016-Maio-09: preparando o layour do painel frontal</h4>
+    Em breve irei fazer uma atualização detalhada. Segue abaixo uma "aguinha na boca" de como está agora a emulação do painel frontal de luzes e switches do Patinho Feio no MAME:
+    <br/><br/>
+    <img src="images/Emulador_Patinho_Feio_2016_Maio_09__Painel_Frontal.png" style="border:1px solid grey;" width="90%" alt="preview do painel frontal do patinho feio no MAME em 9 de maio de 2016" />
 
     <script type="text/javascript" src="es6-promise.js"></script>
     <script type="text/javascript" src="browserfs.js"></script>
