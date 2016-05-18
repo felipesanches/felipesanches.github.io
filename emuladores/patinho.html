@@ -26,6 +26,16 @@
       <canvas id="canvas" style="width: 50%; height: 50%; display: block;"/>
     </div>
 
+    <h3>Versão mais recente do emulador</h3>
+    <ul>
+      <li>Essa versão do emulador será constantemente atualizada para mostrar as últimas novidades.</li>
+      <li>Mas justamente por conta disso, provavelmente não conterá todas as explicações.</li>
+      <li>Experimente à vontade.</li>
+    </ul> 
+    <div>
+      <canvas id="canvas-latest" style="width: 50%; height: 50%; display: block;"/>
+    </div>
+
     <h3>Detalhes técnicos</h3>
     Esta compilação foi feita a partir <a href="https://github.com/felipesanches/mame/commit/4d2da785023caf57b7b5affa46e5043261ef78a9">deste commit</a> disponível no GitHub. Em particular, fiz algumas alterações "inadequadas" nesta compilação, para conseguir um aspecto visual agradável. Modifiquei a largura e a altura default da teletype para que a janela do emulador mostre apenas o cantinho onde é impresso o texto "PATINHO FEIO". A largura desta compilação está setada para 16 caracteres, enquanto a largura real da teletype ASR33 era de 72 caracteres.
     </br></br>
@@ -65,6 +75,22 @@
                                                    //JSMESSLoader.mountFile("patinho.cfg",
                                                    //                       JSMESSLoader.fetchFile("Config",
                                                    //                                              "emulators/patinho.cfg")),
+                                                   JSMESSLoader.extraArgs(['-ui_active', '-samples'])
+                                                  )
+                                 );
+      emulator.setScale(1).start({ waitAfterDownloading: true });
+    </script>
+
+    <script type="text/javascript">
+      var emulator = new Emulator(document.querySelector("#canvas-latest"),
+                                  null,
+                                  new JSMESSLoader(JSMESSLoader.driver("patinho"),
+                                                   JSMESSLoader.nativeResolution(64*4, 15*4),
+                                                   JSMESSLoader.aspectRatio(64.0/15.0),
+                                                   JSMESSLoader.emulatorJS("emulators/2016-05-18.mamepatinho.f5d379ca1387bbb198878865a14a725155c70dc3.js"),
+                                                   JSMESSLoader.mountFile("patinho.zip",
+                                                                          JSMESSLoader.fetchFile("Punched Tapes",
+                                                                                                 "ROM/patinho.zip")),
                                                    JSMESSLoader.extraArgs(['-ui_active', '-samples'])
                                                   )
                                  );
