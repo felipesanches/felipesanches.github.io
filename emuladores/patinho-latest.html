@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Hello World do 'Patinho Feio' (1971)</title>
+  </head>
+  <body>
+    <h2>Preservação histórica do computador 'Patinho Feio' (de 1971)</h2>
+    <small><i>por Felipe C. da S. Sanches &lt;juca@members.fsf.org&gt;<br/>Maio de 2016</i></small></br>
+
+    <h3>Versão mais recente do emulador</h3>
+    <ul>
+      <li>Essa versão do emulador será constantemente atualizada para mostrar as últimas novidades.</li>
+      <li>Mas justamente por conta disso, provavelmente não conterá todas as explicações.</li>
+      <li>Experimente à vontade.</li>
+    </ul> 
+    <div>
+      <canvas id="canvas-latest" style="width: 50%; height: 50%; display: block;"/>
+    </div>
+
+    <script type="text/javascript" src="es6-promise.js"></script>
+    <script type="text/javascript" src="browserfs.js"></script>
+    <script type="text/javascript" src="loader.js"></script>
+
+    <script type="text/javascript">
+      var emulator = new Emulator(document.querySelector("#canvas-latest"),
+                                  null,
+                                  new JSMESSLoader(JSMESSLoader.driver("patinho"),
+                                                   JSMESSLoader.nativeResolution(64*4, 15*4),
+                                                   JSMESSLoader.aspectRatio(64.0/15.0),
+                                                   JSMESSLoader.emulatorJS("emulators/2016-05-18.mamepatinho.f5d379ca1387bbb198878865a14a725155c70dc3.js"),
+                                                   JSMESSLoader.mountFile("patinho.zip",
+                                                                          JSMESSLoader.fetchFile("Punched Tapes",
+                                                                                                 "ROM/patinho.zip")),
+                                                   JSMESSLoader.extraArgs(['-ui_active', '-samples'])
+                                                  )
+                                 );
+      emulator.setScale(1).start({ waitAfterDownloading: true });
+    </script>
+  </body>
+</html>
